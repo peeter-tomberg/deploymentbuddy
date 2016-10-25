@@ -1,0 +1,6 @@
+{
+  "plugin": {
+    "consumes": ["logger"],
+    "provides": ["sequelize"]
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "plugin": {
+    "consumes": ["sequelize"],
+    "provides": ["models"]
+  }
+}

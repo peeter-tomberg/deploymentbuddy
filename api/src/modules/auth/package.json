@@ -1,0 +1,5 @@
+{
+  "plugin": {
+    "consumes": ["jwt", "httpPrivate", "models"]
+  }
+}

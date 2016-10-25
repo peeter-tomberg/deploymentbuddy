@@ -1,0 +1,25 @@
+{
+  "name": "deploymentbuddy-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "dependencies": {
+    "dotenv-safe": "^2.3.2",
+    "good-winston": "^3.0.0",
+    "hapi": "^15.2.0",
+    "hapi-swagger": "^7.4.0",
+    "inert": "^4.0.2",
+    "joi": "^9.2.0",
+    "jsonwebtoken": "^7.1.9",
+    "mysql": "^2.11.1",
+    "sequelize": "^3.24.5",
+    "vision": "^4.1.0",
+    "winston": "^2.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
