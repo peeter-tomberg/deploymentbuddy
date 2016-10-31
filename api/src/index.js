@@ -1,4 +1,5 @@
 require('dotenv-safe').load();
+require('babel-register');
 
 const path = require('path');
 const architect = require("architect");

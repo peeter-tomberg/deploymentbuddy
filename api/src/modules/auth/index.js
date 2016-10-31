@@ -1,48 +1,41 @@
-const Joi = require('joi');
+const lodash = require('lodash');
+
+const { createHapiServiceRoutes } = require('./src/helper');
+
+const facebook = require('./src/services/facebook');
+const google = require('./src/services/google');
 
 module.exports = (options, imports, register) => {
     const { httpPrivate, jwt } = imports;
-    const { User } = imports.models;
+    const { User, Authentication } = imports.models;
 
-    httpPrivate.route({
-        method: 'POST',
-        path: '/auth/signup',
-        config: {
-            tags: ['api'],
-            validate: {
-                payload: {
-                    email: Joi.string().email().required(),
-                    password: Joi.string().required()
-                }
-            }
-        },
-        handler: (request, reply) => {
+    const findUserByAuthentication = (authentication) => {
+        return User.findOne({
+            include: [{
+                model: Authentication,
+                where: { serviceType: authentication.serviceType, serviceToken: authentication.serviceToken }
+            }]
+        });
+    };
+    const findUserByEmail = (email) => {
+        return User.findOne({
+            where: {
+                email
+            },
+            include: [{
+                model: Authentication
+            }]
+        });
+    };
+    const createUser = (user, authentication) => {
+        return User.create(lodash.extend({}, user, { authentications: [authentication] }), { include: [ Authentication ] });
+    };
+    const addAuthenticationToUser = async (existingUser, authentication) => {
+        return existingUser.addAuthentication(await Authentication.create(authentication));
+    };
 
-            reply(User.create(request.payload))
-        }
-    });
-    httpPrivate.route({
-        method: 'POST',
-        path: '/auth/token',
-        config: {
-            tags: ['api']
-        },
-        handler: (request, reply) => {
-            User.findOne({ id: 1 }).then((user) => jwt.sign({ user })).then(reply);
-        }
-    });
-    httpPrivate.route({
-        method: 'POST',
-        path: '/auth/verify',
-        config: {
-            tags: ['api'],
-            validate: {
-                payload: {
-                    token: Joi.string().required()
-                }
-            }
-        },
-        handler: (request, reply) => reply(jwt.decode(request.payload.token))
-    });
+    const createAccessToken = user => ({ accessToken: jwt.sign({ user }) });
+
+    httpPrivate.route(createHapiServiceRoutes([facebook, google], findUserByAuthentication, findUserByEmail, createUser, addAuthenticationToUser, createAccessToken));
     register();
 };

@@ -18,10 +18,10 @@ import { Component } from 'opus-angular-seed-core';
             <div class="md-dialog-content">
                 <h2>Sign up by via one of the social sites below</h2>
                 <div layout="row">
-                    <md-button ng-click="answer('useful')">
+                    <md-button ng-click="vm.authenticate('facebook')">
                         Facebook
                     </md-button>
-                    <md-button ng-click="answer('useful')">
+                    <md-button ng-click="vm.authenticate('google')">
                         Google
                     </md-button>
                 </div>
@@ -30,5 +30,11 @@ import { Component } from 'opus-angular-seed-core';
     `
 })
 export default class {
+    constructor ($auth) {
+        this.$auth = $auth;
+    }
+    authenticate (service) {
+        this.$auth.authenticate(service);
+    }
 
 }

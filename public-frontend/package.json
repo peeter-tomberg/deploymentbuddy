@@ -69,6 +69,7 @@
     "html-webpack-plugin": "2.16.1",
     "lodash": "4.6.1",
     "opus-angular-seed-core": "1.0.0",
+    "satellizer": "^0.15.5",
     "webpack": "1.13.2"
   },
   "vendors": [
@@ -82,12 +83,14 @@
     "angular-animate",
     "angular-aria",
     "angular-messages",
-    "angular-material"
+    "angular-material",
+    "satellizer"
   ],
   "angularDependencies": [
     "ui.router",
     "ngResource",
     "pascalprecht.translate",
-    "ngMaterial"
+    "ngMaterial",
+    "satellizer"
   ]
 }

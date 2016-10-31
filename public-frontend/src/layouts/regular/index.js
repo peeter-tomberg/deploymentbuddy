@@ -40,7 +40,7 @@ export default {
                 controllerAs: 'vm',
                 template: `
                     <md-dialog aria-label="Login">
-                            <auth-login layout-fill on-close="vm.close()"></auth-login>
+                        <auth-login layout-fill on-close="vm.close()"></auth-login>
                     </md-dialog>
                 `,
                 fullscreen: true

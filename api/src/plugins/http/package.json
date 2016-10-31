@@ -1,5 +1,6 @@
 {
   "plugin": {
+    "consumes": ["logger"],
     "provides": ["httpPublic", "httpPrivate"]
   }
 }
